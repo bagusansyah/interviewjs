@@ -103,12 +103,12 @@ function toggleActive(id) {
 }
 
 function getDashboard() {
-    const totalEmployees = employees.reduce((accumulator, current) => accumulator + current, 0);
+    const totalEmployees = employees.length;
     const activeEmployees = employees.filter(employee => employee.active).length;
     const inActiveEmployees = employees.filter(employee => !employee.active).length;
     const totalSalary = employees.reduce((totalOfSalary, employee) => totalOfSalary + employee.salary, 0);
     const averageSalary = totalSalary / totalEmployees;
-    const highestSalaryEmployee = employees.filter(employee => employee.salary < averageSalary);
+    const highestSalaryEmployee = employees.filter(employee => employee.salary > averageSalary);
     return {
         totalEmployees,
         activeEmployees,
@@ -119,19 +119,17 @@ function getDashboard() {
 }
 
 function searchEmployee(keyword) {
-    const filteredEmployees = employees.filter(employee => {
-        const nameMatch = employee.name.toLowerCase().includes(keyword.toLowerCase());
-        return nameMatch
-    })
+    const filteredEmployees = employees.filter(employee => employee.name.includes(keyword));
     return filteredEmployees;
 }
 
-function getDepartmentSummary() {
-    const departmentSummary = employees.reduce((summary, employee) => {
-        const department = employee.department;
-        const totalEmployees = summary[department] ? summary[department].employees + 1 : 0;
-        const totalSalary = summary[department] ? summary[department].salary + employee.salary : 0 ;
-        summary[department] = { employees: totalEmployees, salary: totalSalary };
-        return summary;
-    }, )
-}
+// function getDepartmentSummary() {
+//     const departmentSummary = employees.reduce((summary, employee) => {
+//         const department = employee.department;
+//         const totalEmployees = summary[department] ? summary[department].employees + 1 ;
+//         const totalSalary = summary[department] ? summary[department].salary + employee.salary : ;
+//         summary[department] = { employees: totalEmployees, salary: totalSalary };
+//         return summary;
+//     }, )
+// }
+
